@@ -28,6 +28,7 @@ import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.ActionMode.Callback;
 import android.view.Menu;
@@ -87,7 +88,10 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.activity_editor);
+		
+		Toast.makeText(this, "activity editor",Toast.LENGTH_SHORT).show();
 
 		fragmentManager = getSupportFragmentManager();
 
@@ -222,6 +226,8 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
         //If an mission item is selected, unselect it.
         missionProxy.selection.clearSelection();
 
+        Toast.makeText(this, "map click", Toast.LENGTH_SHORT).show();
+        
 		switch (getTool()) {
 		case MARKER:
             if(mIsSplineEnabled){
@@ -248,6 +254,7 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
 
 	@Override
 	public void editorToolChanged(EditorTools tools) {
+		Toast.makeText(this, "tool change", Toast.LENGTH_LONG).show();
 		missionProxy.selection.clearSelection();
 		setupTool(tools);
 	}
@@ -436,15 +443,21 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
 
 	@Override
 	public void onItemClick(MissionItemProxy item) {
+		
+
+		
 		switch (getTool()) {
 		default:
+			
 			if (contextualActionBar != null) {
+				Toast.makeText(this,"item action",Toast.LENGTH_SHORT).show();
 				if (missionProxy.selection.selectionContains(item)) {
 					missionProxy.selection.removeItemFromSelection(item);
 				} else {
 					missionProxy.selection.addToSelection(item);
 				}
 			} else {
+				Toast.makeText(this,"item null",Toast.LENGTH_SHORT).show();
 				if (missionProxy.selection.selectionContains(item)) {
 					missionProxy.selection.clearSelection();
 				} else {
@@ -472,6 +485,8 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
     public void onSelectionUpdate(List<MissionItemProxy> selected) {
         final int selectedCount = selected.size();
         
+        
+        Toast.makeText(this, "selection update",Toast.LENGTH_SHORT).show();
         missionListFragment.setArrowsVisibility(selectedCount > 0);
         
         if(selectedCount != 1){

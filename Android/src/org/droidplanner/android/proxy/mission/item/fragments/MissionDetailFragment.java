@@ -84,6 +84,10 @@ public abstract class MissionDetailFragment extends DialogFragment implements
             case SPLINE_WAYPOINT:
                 fragment = new MissionSplineWaypointFragment();
                 break;
+                
+            case DIGICAM_CONTROL:
+            	fragment = new MissionDigicamFragment();
+            	break;
 
             default:
                 fragment = null;
