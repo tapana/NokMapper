@@ -1,0 +1,23 @@
+class to observe to add mavlink waypoint command type
+
+MissionDetailFragment
+	return child class on create new_instance method
+	popup dialog for each marker setting
+	extends and implent getResource() to return layout.xml
+	example class Mission WaypointFragment
+
+fragment_editor_detail_xxxx.xml
+	inflate setting view 
+
+
+
+Core MissionItemType
+
+Core Waypoint Loiter .. etc. interite from SpatialCoordinate
+	need to override Command pack , unpack
+
+Check Survey class in Core library
+	How it auto genrate waypoints?
+
+cut out from fragment_editor_detail_rtl
+ xmlns:custom="http://schemas.android.com/apk/res/org.droidplanner" --> 
