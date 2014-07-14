@@ -130,9 +130,9 @@ public abstract class InfoBarItem {
 		public void updateItemView(final Context context, final Drone drone) {
 			if (mItemView != null) {
 				String update = drone == null ? "--" : String.format(
-						"Satellite\n%d, %s", drone.GPS.getSatCount(),
-						drone.GPS.getFixType());
-
+						"Sat %d\n %s, %.1f", drone.GPS.getSatCount(),
+						drone.GPS.getFixType(),drone.GPS.getGpsEPH());
+					
 				((TextView) mItemView).setText(update);
 			}
 		}

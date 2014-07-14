@@ -16,8 +16,22 @@ Core MissionItemType
 Core Waypoint Loiter .. etc. interite from SpatialCoordinate
 	need to override Command pack , unpack
 
-Check Survey class in Core library
+Core Survey	 
 	How it auto genrate waypoints?
 
 cut out from fragment_editor_detail_rtl
- xmlns:custom="http://schemas.android.com/apk/res/org.droidplanner" --> 
+ xmlns:custom="http://schemas.android.com/apk/res/org.droidplanner" 
+
+
+
+Flight Activity  extends DrawerNavigationUI extends SuperUI
+
+
+	telemetry framment 
+		left-side info 
+
+ 	flight aciton fragment
+ 		button on bottom bar rtl, land, follow me , etc..
+
+ 	actionbar 
+ 		is infobar inside SuperUI class InfoBarActionProvider

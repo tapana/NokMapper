@@ -56,8 +56,8 @@
         android:name=".android.DroidPlannerApp"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/ic_launcher_nok"
-        android:label="@string/app_title_nok"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_title"
         android:theme="@style/CustomActionBarTheme"
         android:windowSoftInputMode="adjustPan" >
 
