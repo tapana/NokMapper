@@ -18,6 +18,18 @@ Core Waypoint Loiter .. etc. interite from SpatialCoordinate
 
 Core Survey	 
 	How it auto genrate waypoints?
+	GridBuilder class
+		innerWPs parameter to generate wp inside grid line
+
+		CircumscribedGrid :  create rough square grid lines
+		Trimmer : trim rough grid to draw boundary
+		EnpointSorter : create waypoints from grid lines
+			addWaypointsBetween(); where waypoint actuall generate
+		    maximum camera location = 2000
+
+
+
+
 
 cut out from fragment_editor_detail_rtl
  xmlns:custom="http://schemas.android.com/apk/res/org.droidplanner" 

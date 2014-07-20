@@ -25,8 +25,7 @@ public class GridBuilder {
 		this.angle = surveyData.getAngle();
 		this.lineDist = surveyData.getLateralPictureDistance().valueInMeters();
 		this.innerWPs = surveyData.shouldGenerateInnerWPs();
-		this.wpDistance = surveyData.getLongitudinalPictureDistance()
-				.valueInMeters();
+		this.wpDistance = surveyData.getLongitudinalPictureDistance().valueInMeters();
 	}
 
 	public GridBuilder(Polygon polygon, double angle, double distance,
