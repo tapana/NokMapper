@@ -4,14 +4,9 @@ import java.util.List;
 
 import org.droidplanner.R;
 import org.droidplanner.android.DroidPlannerApp;
-import org.droidplanner.android.activities.interfaces.OnEditorInteraction;
 import org.droidplanner.android.activities.helpers.SuperUI;
-import org.droidplanner.android.proxy.mission.MissionSelection;
-import org.droidplanner.android.proxy.mission.item.MissionItemProxy;
-import org.droidplanner.android.proxy.mission.MissionProxy;
-import org.droidplanner.android.utils.prefs.AutoPanMode;
-import org.droidplanner.core.drone.Drone;
-import org.droidplanner.core.drone.DroneInterfaces.DroneEventsType;
+import org.droidplanner.android.activities.interfaces.OnEditorInteraction;
+import org.droidplanner.android.dialogs.YesNoDialog;
 import org.droidplanner.android.fragments.EditorListFragment;
 import org.droidplanner.android.fragments.EditorMapFragment;
 import org.droidplanner.android.fragments.EditorToolsFragment;
@@ -19,16 +14,18 @@ import org.droidplanner.android.fragments.EditorToolsFragment.EditorTools;
 import org.droidplanner.android.fragments.EditorToolsFragment.OnEditorToolSelected;
 import org.droidplanner.android.fragments.helpers.GestureMapFragment;
 import org.droidplanner.android.fragments.helpers.GestureMapFragment.OnPathFinishedListener;
+import org.droidplanner.android.proxy.mission.MissionProxy;
+import org.droidplanner.android.proxy.mission.MissionSelection;
+import org.droidplanner.android.proxy.mission.item.MissionItemProxy;
 import org.droidplanner.android.proxy.mission.item.fragments.MissionDetailFragment;
-
+import org.droidplanner.android.utils.prefs.AutoPanMode;
+import org.droidplanner.core.drone.Drone;
+import org.droidplanner.core.drone.DroneInterfaces.DroneEventsType;
 import org.droidplanner.core.helpers.coordinates.Coord2D;
-import org.droidplanner.android.dialogs.YesNoDialog;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.ActionMode.Callback;
 import android.view.Menu;
@@ -38,7 +35,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * This implements the map editor activity. The map editor activity allows the user to create
@@ -89,9 +85,7 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.activity_editor);
-		
-		Toast.makeText(this, "activity editor",Toast.LENGTH_SHORT).show();
+		setContentView(R.layout.activity_editor);			
 
 		fragmentManager = getSupportFragmentManager();
 
@@ -225,8 +219,7 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
 	public void onMapClick(Coord2D point) {
         //If an mission item is selected, unselect it.
         missionProxy.selection.clearSelection();
-
-        Toast.makeText(this, "map click", Toast.LENGTH_SHORT).show();
+        
         
 		switch (getTool()) {
 		case MARKER:
@@ -254,7 +247,6 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
 
 	@Override
 	public void editorToolChanged(EditorTools tools) {
-		Toast.makeText(this, "tool change", Toast.LENGTH_LONG).show();
 		missionProxy.selection.clearSelection();
 		setupTool(tools);
 	}
@@ -267,8 +259,7 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
                 break;
 
             case POLY:
-                enableSplineToggle(false);
-                Toast.makeText(this,R.string.draw_the_survey_region, Toast.LENGTH_SHORT).show();
+                enableSplineToggle(false);                
                 gestureMapFragment.enableGestureDetection();
                 break;
 
@@ -449,15 +440,13 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
 		switch (getTool()) {
 		default:
 			
-			if (contextualActionBar != null) {
-				Toast.makeText(this,"item action",Toast.LENGTH_SHORT).show();
+			if (contextualActionBar != null) {				
 				if (missionProxy.selection.selectionContains(item)) {
 					missionProxy.selection.removeItemFromSelection(item);
 				} else {
 					missionProxy.selection.addToSelection(item);
 				}
-			} else {
-				Toast.makeText(this,"item null",Toast.LENGTH_SHORT).show();
+			} else {				
 				if (missionProxy.selection.selectionContains(item)) {
 					missionProxy.selection.clearSelection();
 				} else {
@@ -485,8 +474,7 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
     public void onSelectionUpdate(List<MissionItemProxy> selected) {
         final int selectedCount = selected.size();
         
-        
-        Toast.makeText(this, "selection update",Toast.LENGTH_SHORT).show();
+                
         missionListFragment.setArrowsVisibility(selectedCount > 0);
         
         if(selectedCount != 1){

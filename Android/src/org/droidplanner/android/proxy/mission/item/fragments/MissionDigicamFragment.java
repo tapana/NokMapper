@@ -6,7 +6,6 @@ import org.droidplanner.core.mission.MissionItemType;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 public class MissionDigicamFragment extends MissionDetailFragment implements SeekBarWithText.OnTextSeekBarChangedListener  {
 
@@ -21,7 +20,7 @@ public class MissionDigicamFragment extends MissionDetailFragment implements See
 	@Override
 	public void onSeekBarChanged() {
 		// TODO Auto-generated method stub
-		Toast.makeText(getActivity(), "seekbar changed", Toast.LENGTH_SHORT).show();
+
 		
 	}
 	
