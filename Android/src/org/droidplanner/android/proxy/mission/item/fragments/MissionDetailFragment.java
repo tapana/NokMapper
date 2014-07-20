@@ -92,6 +92,14 @@ public abstract class MissionDetailFragment extends DialogFragment implements
                 fragment = new MissionSplineWaypointFragment();
                 break;
 
+            case DIGICAM_CONTROL:
+            	fragment = new MissionDigicamFragment();
+            	break;
+            	
+            case CAM_TRIGG_DIST:
+               	fragment = new MissionCamTriggDistFragment();
+            	break;
+                
             default:
                 fragment = null;
                 break;

@@ -1,0 +1,20 @@
+How to create new cmd
+
+1. add mavlink cmd index to MAV_CMD
+2. add type to MissionItemType
+3. create missionItem class inside package 
+		org.droidplanner.core.mission.commands
+4. add entry to getNewItem method inside MissionItemType Class
+5. create new ui fragment class inside package 
+	"org.droidplanner.android.proxy.mission.item.fragments"
+
+6. and entry to MissionDetailFrament.newInstance method
+
+
+7. and entry to method processmavlinkmessages inside Core : Mission Class
+
+
+
+markerinfo
+seekbar
+

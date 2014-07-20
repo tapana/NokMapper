@@ -178,6 +178,7 @@
     <string name="waypointType_ROI">Region of Interest</string>
     <string name="waypointType_Survey">Survey Polygon</string>
     <string name="waypointType_Digicam">Digicam Control</string>
+    <string name="waypointType_Camtrigg">Camera Trigg Dist</string>
     
 
     <!-- Waypoint info -->
@@ -197,6 +198,7 @@
     <string name="waypointInfo_ROI">Sets a location and altitude to point copter towards and to aim an optional camera.</string>
     <string name="waypointInfo_SetJump">Repeat waypoint</string>
     <string name="waypointInfo_Digicam">Send a snapshot signal to camera.</string>
+    <string name="waypointInfo_Camtrigg">Set camera trigger distance for current mission.</string>
 
     <!-- Waypoint editor -->
     <string name="editor_info_window">Distance: 200m, Flight time: 3:30s</string>

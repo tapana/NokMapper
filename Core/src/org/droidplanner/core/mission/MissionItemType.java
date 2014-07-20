@@ -1,6 +1,7 @@
 package org.droidplanner.core.mission;
 
 import org.droidplanner.core.helpers.coordinates.Coord2D;
+import org.droidplanner.core.mission.commands.CamTriggDist;
 import org.droidplanner.core.mission.commands.DigicamControl;
 import org.droidplanner.core.mission.commands.ReturnToHome;
 import org.droidplanner.core.mission.commands.Takeoff;
@@ -28,7 +29,9 @@ public enum MissionItemType {
     LOITER_INF("Loiter indefinitly"),
     ROI("Region of Interest"),
     SURVEY("Survey"),
-    DIGICAM_CONTROL("Digicam Control");
+    DIGICAM_CONTROL("Digicam Control"),
+    CAM_TRIGG_DIST("Camera Trigger Dist");
+    
 
     private final String name;
 
@@ -39,7 +42,6 @@ public enum MissionItemType {
     public String getName() {
         return name;
     }
-
 
     public MissionItem getNewItem(MissionItem referenceItem) throws IllegalArgumentException {
         switch (this) {
@@ -67,6 +69,8 @@ public enum MissionItemType {
                 return new Survey(referenceItem.getMission(), Collections.<Coord2D>emptyList());
             case DIGICAM_CONTROL:
             	return new DigicamControl(referenceItem);
+            case CAM_TRIGG_DIST:
+            	return new CamTriggDist(referenceItem);
                 
             default:
                 throw new IllegalArgumentException("Unrecognized mission item type (" + name + ")" +

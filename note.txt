@@ -9,12 +9,23 @@ MissionDetailFragment
 fragment_editor_detail_xxxx.xml
 	inflate setting view 
 
+EditorListFragment
+
+binding mission with Editor UI 
+	MissionItemProxy 
+	MIssionItemProxyView
+
+	fragment_editor_list 		list view row to contaion item
+  	fragment_editor_list_itrm   individual item
+
+
+
 
 
 Core MissionItemType
 
 Core Waypoint Loiter .. etc. interite from SpatialCoordinate
-	need to override Command pack , unpack
+	need to override Command pa`ck , unpack
 
 Core Survey	 
 	How it auto genrate waypoints?
@@ -27,6 +38,7 @@ Core Survey
 			addWaypointsBetween(); where waypoint actuall generate
 		    maximum camera location = 2000
 
+core Mission class 
 
 
 

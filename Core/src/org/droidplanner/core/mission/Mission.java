@@ -1,7 +1,5 @@
 package org.droidplanner.core.mission;
 
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +10,8 @@ import org.droidplanner.core.drone.DroneVariable;
 import org.droidplanner.core.helpers.geoTools.GeoTools;
 import org.droidplanner.core.helpers.units.Altitude;
 import org.droidplanner.core.helpers.units.Length;
+import org.droidplanner.core.mission.commands.CamTriggDist;
+import org.droidplanner.core.mission.commands.DigicamControl;
 import org.droidplanner.core.mission.commands.Takeoff;
 import org.droidplanner.core.mission.waypoints.Circle;
 import org.droidplanner.core.mission.waypoints.Land;
@@ -236,6 +236,13 @@ public class Mission extends DroneVariable {
 				break;
 			case MAV_CMD.MAV_CMD_NAV_LOITER_TURNS:
 				received.add(new Circle(msg, this));
+			    break;
+			case MAV_CMD.MAV_CMD_DO_DIGICAM_CONTROL:
+				received.add(new DigicamControl(msg, this));
+				break;
+			case MAV_CMD.MAV_CMD_DO_SET_CAM_TRIGG_DIST:
+				received.add(new CamTriggDist(msg, this));
+				break;
 			default:
 				break;
 			}

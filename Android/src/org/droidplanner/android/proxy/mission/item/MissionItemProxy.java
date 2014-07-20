@@ -12,6 +12,7 @@ import org.droidplanner.core.helpers.coordinates.Coord2D;
 import org.droidplanner.core.helpers.geoTools.GeoTools;
 import org.droidplanner.core.helpers.units.Length;
 import org.droidplanner.core.mission.MissionItem;
+import org.droidplanner.core.mission.commands.CamTriggDist;
 import org.droidplanner.core.mission.commands.Takeoff;
 import org.droidplanner.core.mission.survey.Survey;
 import org.droidplanner.core.mission.survey.grid.Grid;
@@ -134,15 +135,16 @@ public class MissionItemProxy implements Comparable<MissionItemProxy> {
 
 		nameView.setText(String.format("%3d", mMissionItem.getMission().getOrder(mMissionItem)));
 
-		final int leftDrawable = mMissionItem instanceof SplineWaypoint ? R.drawable.ic_mission_spline_wp
-				: R.drawable.ic_mission_wp;
-		altitudeView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, 0, 0);
+		int leftDrawable = R.drawable.ic_mission_wp;
+		
 
 		if (mMissionItem instanceof SpatialCoordItem) {
+			
+			if(mMissionItem instanceof SplineWaypoint )leftDrawable = R.drawable.ic_mission_spline_wp;					
+			
 			SpatialCoordItem waypoint = (SpatialCoordItem) mMissionItem;
 			altitudeView.setText(String.format("%3.0fm", waypoint.getCoordinate().getAltitude()
 					.valueInMeters()));
-
 			try {
 				Length diff = waypoint.getMission().getAltitudeDiffFromPreviousItem(waypoint);
 				if (diff.valueInMeters() > 0) {
@@ -153,15 +155,23 @@ public class MissionItemProxy implements Comparable<MissionItemProxy> {
 			} catch (Exception e) {
 				// Do nothing when last item doesn't have an altitude
 			}
+			
+			
 		} else if (mMissionItem instanceof Survey) {
 			altitudeView.setText(((Survey) mMissionItem).surveyData.getAltitude().toString());
 
 		} else if (mMissionItem instanceof Takeoff) {
 			altitudeView.setText(((Takeoff) mMissionItem).getFinishedAlt().toString());
+		} else if (mMissionItem instanceof CamTriggDist){
+			leftDrawable = R.drawable.ic_mission_dist;
+			altitudeView.setText( Double.toString( ((CamTriggDist)mMissionItem).getTriggDist()) + "m");
 		} else {
-			altitudeView.setText("");
+			altitudeView.setText("-m");
 		}
 
+		altitudeView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, 0, 0);
+		
+		
 		/*
 		 * if (waypoint.getCmd().showOnMap()) {
 		 * altitudeView.setText(String.format(Locale.ENGLISH, "%3.0fm",
