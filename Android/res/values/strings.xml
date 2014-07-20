@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Do not translate the following strings -->
-    <string name="app_title">DroidPlanner</string>
+    <string name="app_title">NokMap</string>
 
     <!-- Generic strings -->
     <string name="settings">Settings</string>
@@ -177,6 +177,8 @@
     <string name="waypointType_Loiter">Loiter</string>
     <string name="waypointType_ROI">Region of Interest</string>
     <string name="waypointType_Survey">Survey Polygon</string>
+    <string name="waypointType_Digicam">Digicam Control</string>
+    
 
     <!-- Waypoint info -->
     <string name="waypointInfo_Land">Land vehicle at the current location. You must manually exit Auto mode to disarm motors.</string>
@@ -194,6 +196,7 @@
     <string name="waypointInfo_SetSpeed">Change speed and/or throttle set points.Set -1 for both Speed and Throttle if no changes is required</string>
     <string name="waypointInfo_ROI">Sets a location and altitude to point copter towards and to aim an optional camera.</string>
     <string name="waypointInfo_SetJump">Repeat waypoint</string>
+    <string name="waypointInfo_Digicam">Send a snapshot signal to camera.</string>
 
     <!-- Waypoint editor -->
     <string name="editor_info_window">Distance: 200m, Flight time: 3:30s</string>
@@ -385,7 +388,8 @@
     <string name="pref_usage_statistics_summary">Help improve DroidPlanner by sending usage statistics.</string>
 
     <string name="pref_permanent_notification_title">Enable permanent notification</string>
-    <string name="pref_permanent_notification_summary">Enable to make status bar notification permanent when connected.</string>
+    <string name="pref_permanent_notification_summary">Enable to make status bar notification permanent when connected.</string>    
+    <string name="app_title_nok">NokMap</string>
 
     <string name="zoom_fit">Zoom to Fit</string>
     <string name="open_mission_file">Open Mission File</string>
