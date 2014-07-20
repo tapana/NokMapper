@@ -1,6 +1,7 @@
 package org.droidplanner.core.mission;
 
 import org.droidplanner.core.helpers.coordinates.Coord2D;
+import org.droidplanner.core.mission.commands.DigicamControl;
 import org.droidplanner.core.mission.commands.ReturnToHome;
 import org.droidplanner.core.mission.commands.Takeoff;
 import org.droidplanner.core.mission.survey.Survey;

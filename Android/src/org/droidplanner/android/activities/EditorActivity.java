@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.droidplanner.R;
 import org.droidplanner.android.DroidPlannerApp;
+import org.droidplanner.android.activities.helpers.SuperUI;
 import org.droidplanner.android.activities.interfaces.OnEditorInteraction;
 import org.droidplanner.android.dialogs.YesNoDialog;
 import org.droidplanner.android.dialogs.openfile.OpenFileDialog;
@@ -15,6 +16,8 @@ import org.droidplanner.android.fragments.EditorToolsFragment.EditorTools;
 import org.droidplanner.android.fragments.EditorToolsFragment.OnEditorToolSelected;
 import org.droidplanner.android.fragments.helpers.GestureMapFragment;
 import org.droidplanner.android.fragments.helpers.GestureMapFragment.OnPathFinishedListener;
+import org.droidplanner.android.proxy.mission.MissionProxy;
+import org.droidplanner.android.proxy.mission.item.MissionItemProxy;
 import org.droidplanner.android.proxy.mission.item.fragments.MissionDetailFragment;
 import org.droidplanner.android.utils.file.IO.MissionReader;
 import org.droidplanner.android.utils.file.IO.MissionWriter;
@@ -22,9 +25,8 @@ import org.droidplanner.android.utils.prefs.AutoPanMode;
 import org.droidplanner.core.drone.Drone;
 import org.droidplanner.core.drone.DroneInterfaces.DroneEventsType;
 import org.droidplanner.core.helpers.coordinates.Coord2D;
-import org.droidplanner.android.dialogs.YesNoDialog;
+import org.droidplanner.android.proxy.mission.MissionSelection;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
@@ -38,6 +40,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 /**
  * This implements the map editor activity. The map editor activity allows the user to create
@@ -75,6 +78,10 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
     private ImageButton mGoToMyLocation;
     private ImageButton mGoToDroneLocation;
 
+    
+    private View mLocationButtonsContainer;
+    
+
     /**
      * This view hosts the mission item detail fragment.
      * On phone, or device with limited screen estate, it's removed from the layout,
@@ -101,6 +108,8 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
 				.findFragmentById(R.id.missionFragment1);
 		infoView = (TextView) findViewById(R.id.editorInfoWindow);
 
+		mLocationButtonsContainer = findViewById(R.id.location_button_container);
+		
         mSplineToggleContainer = findViewById(R.id.editorSplineToggleContainer);
         mSplineToggleContainer.setVisibility(View.VISIBLE);
 

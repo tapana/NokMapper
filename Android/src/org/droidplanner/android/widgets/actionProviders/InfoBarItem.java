@@ -407,16 +407,17 @@ public abstract class InfoBarItem {
 			mModeAdapter = new ModeAdapter(context, R.layout.spinner_drop_down);
 			modesSpinner.setAdapter(mModeAdapter);
 
-			modesSpinner
-					.setOnSpinnerItemSelectedListener(new SpinnerSelfSelect.OnSpinnerItemSelectedListener() {
+			modesSpinner.setOnSpinnerItemSelectedListener(new SpinnerSelfSelect.OnSpinnerItemSelectedListener() {
+						
 						@Override
-						public void onSpinnerItemSelected(Spinner parent,
-								int position, String text) {
+						public void onSpinnerItemSelected(Spinner spinner,
+								int position) {
 							if (mDrone != null) {
-								final ApmModes newMode = (ApmModes) parent
+								final ApmModes newMode = (ApmModes) spinner
 										.getItemAtPosition(position);
 								mDrone.state.changeFlightMode(newMode);
 							}
+							
 						}
 					});
 
