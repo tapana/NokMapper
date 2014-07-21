@@ -65,7 +65,7 @@
 				android:layout_below="@id/WaypointType"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@string/distance_to_home" />
+				android:text="" />
 
 			<TextView
 				android:id="@+id/DistanceValue"
@@ -75,7 +75,7 @@
                 android:layout_marginLeft="12dp"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="20m" />
+				android:text="" />
 		</RelativeLayout>
 	</RelativeLayout>
 

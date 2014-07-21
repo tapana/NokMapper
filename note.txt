@@ -59,3 +59,8 @@ Flight Activity  extends DrawerNavigationUI extends SuperUI
 
  	actionbar 
  		is infobar inside SuperUI class InfoBarActionProvider
+
+
+
+
+add hack for survey using waypoint yawangle parameter

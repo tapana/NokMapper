@@ -5,17 +5,22 @@ import org.droidplanner.R;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-public class SeekBarWithText extends LinearLayout implements OnSeekBarChangeListener {
+public class SeekBarWithText extends LinearLayout implements OnSeekBarChangeListener,OnClickListener {
 
 	public interface OnTextSeekBarChangedListener {
 		public void onSeekBarChanged();
 	}
 
+	private Button plusButton;
+	private Button minusButton;
 	private TextView textView;
 	private SeekBar seekBar;
 	private double min = 0;
@@ -35,7 +40,7 @@ public class SeekBarWithText extends LinearLayout implements OnSeekBarChangeList
 
 	public SeekBarWithText(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		createViews(context, attrs);
+		createViews(context, attrs);		
 	}
 
 	private void setFormat(String string) {
@@ -44,7 +49,8 @@ public class SeekBarWithText extends LinearLayout implements OnSeekBarChangeList
 			invalidate();
 		}
 	}
-
+	
+	
 	private void createViews(Context context, AttributeSet attrs) {
 		TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
 				R.styleable.SeekBarWithText, 0, 0);
@@ -60,7 +66,21 @@ public class SeekBarWithText extends LinearLayout implements OnSeekBarChangeList
 					android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 			seekBar.setOnSeekBarChangeListener(this);
 			addView(textView);
-			addView(seekBar);
+						
+			LinearLayout lh  = new LinearLayout(context);			
+			minusButton = new Button(context);
+			minusButton.setText("-");
+			minusButton.setOnClickListener(this);
+			
+			lh.addView(minusButton);
+			
+			plusButton = new Button(context);
+			plusButton.setText("+");			
+			plusButton.setOnClickListener(this);
+			lh.addView(plusButton);
+			lh.addView(seekBar);	
+			
+			addView(lh);
 
 			setTitle(a.getString(R.styleable.SeekBarWithText_title));
 			setUnit(a.getString(R.styleable.SeekBarWithText_unit));
@@ -72,6 +92,7 @@ public class SeekBarWithText extends LinearLayout implements OnSeekBarChangeList
 			a.recycle();
 		}
 	}
+	
 
 	public void setMinMaxInc(double min, double max, double inc) {
 		this.min = min;
@@ -130,6 +151,20 @@ public class SeekBarWithText extends LinearLayout implements OnSeekBarChangeList
 
 	public void setOnChangedListener(OnTextSeekBarChangedListener listner) {
 		this.listner = listner;
+	}
+
+	@Override
+	public void onClick(View v) {
+		Button b = (Button) v;
+		if( b.getText().toString().compareTo("-") == 0){			
+			setValue(getValue()-1);		
+		}else{
+			setValue(getValue()+1);				
+		}
+		if(listner != null){
+			listner.onSeekBarChanged();
+		}
+		
 	}
 
 }

@@ -227,6 +227,8 @@
     <string name="waypoint_coordsrc">Source data:</string>
     <string name="waypoint_jumpto">Jump to waypoint:</string>
     <string name="waypoint_repeat">Repeat waypoint</string>
+    <string name="waypoint_trigdist">Trigger Distance:</string>
+    
     <string name="Orbits">Orbits</string>
 
     <string name="dlg_clear_mission_title">Clear Mission</string>

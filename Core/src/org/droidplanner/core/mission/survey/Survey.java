@@ -31,7 +31,6 @@ public class Survey extends MissionItem {
 
 	public void update(double angle, Altitude altitude, double overlap, double sidelap) {
 		surveyData.update(angle, altitude, overlap, sidelap);
-		surveyData.setInnerWpsState(true);
 		mission.notifyMissionUpdate();
 	}
 

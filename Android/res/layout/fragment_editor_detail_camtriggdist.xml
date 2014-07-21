@@ -65,7 +65,7 @@
 				android:layout_below="@id/WaypointType"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="@string/distance_to_home" />
+				android:text="" />
 
 			<TextView
 				android:id="@+id/DistanceValue"
@@ -75,7 +75,7 @@
                 android:layout_marginLeft="12dp"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="20m" />
+				android:text="" />
 		</RelativeLayout>
 	</RelativeLayout>
 
@@ -114,6 +114,20 @@
 				android:layout_height="wrap_content"
 		        android:padding="12dp"
 				android:orientation="vertical" >
+				
+			  	<org.droidplanner.android.widgets.SeekBarWithText.SeekBarWithText
+			  	    android:id="@+id/distanceView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="2dp"
+					custom:inc="1"
+					custom:max="100"
+					custom:min="0"
+					custom:title="@string/waypoint_trigdist"
+					custom:unit="m" >
+				</org.droidplanner.android.widgets.SeekBarWithText.SeekBarWithText>
+			    
+			    
 			</LinearLayout>
         </LinearLayout>
     </ScrollView>
