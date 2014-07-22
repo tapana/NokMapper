@@ -30,7 +30,7 @@ public class FileStream {
 	static public FileOutputStream getWaypointFileStream(String name) throws FileNotFoundException {
 		File myDir = new File(DirectoryPath.getWaypointsPath());
 		myDir.mkdirs();
-		File file = new File(myDir, name + "-" + FileManager.getTimeStamp() + ".txt");
+		File file = new File(myDir, name + "_" + FileManager.getTimeStamp() + ".txt");
 		if (file.exists())
 			file.delete();
 		FileOutputStream out = new FileOutputStream(file);

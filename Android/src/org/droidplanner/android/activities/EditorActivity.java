@@ -17,6 +17,7 @@ import org.droidplanner.android.fragments.EditorToolsFragment.OnEditorToolSelect
 import org.droidplanner.android.fragments.helpers.GestureMapFragment;
 import org.droidplanner.android.fragments.helpers.GestureMapFragment.OnPathFinishedListener;
 import org.droidplanner.android.proxy.mission.MissionProxy;
+import org.droidplanner.android.proxy.mission.MissionSelection;
 import org.droidplanner.android.proxy.mission.item.MissionItemProxy;
 import org.droidplanner.android.proxy.mission.item.fragments.MissionDetailFragment;
 import org.droidplanner.android.utils.file.IO.MissionReader;
@@ -25,16 +26,21 @@ import org.droidplanner.android.utils.prefs.AutoPanMode;
 import org.droidplanner.core.drone.Drone;
 import org.droidplanner.core.drone.DroneInterfaces.DroneEventsType;
 import org.droidplanner.core.helpers.coordinates.Coord2D;
-import org.droidplanner.android.proxy.mission.MissionSelection;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
+import android.text.InputType;
 import android.view.ActionMode;
 import android.view.ActionMode.Callback;
+import android.view.inputmethod.EditorInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -81,6 +87,8 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
     
     private View mLocationButtonsContainer;
     
+    private Context mContext;
+    
 
     /**
      * This view hosts the mission item detail fragment.
@@ -94,6 +102,8 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		
 		setContentView(R.layout.activity_editor);
 
 		fragmentManager = getSupportFragmentManager();
@@ -230,12 +240,38 @@ public class EditorActivity extends SuperUI implements OnPathFinishedListener,
 	}
 
 	private void saveMissionFile() {
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Mission Name");
+		
+		// Set up the input
+		final EditText input = new EditText(this);
+		//input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+		builder.setView(input);
+		input.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
 
-		if (MissionWriter.write(drone.mission.getMsgMissionItems())) {
-			Toast.makeText(this, "File saved", Toast.LENGTH_SHORT).show();
-		} else {
-			Toast.makeText(this, "Error saving file", Toast.LENGTH_SHORT).show();
-		}
+		// Set up the buttons
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() { 
+		    @Override
+		    public void onClick(DialogInterface dialog, int which) {		    	
+		    	String filename = input.getText().toString();	
+		        if (MissionWriter.write(drone.mission.getMsgMissionItems(),filename) ){
+					Toast.makeText(getApplicationContext(), filename+" saved", Toast.LENGTH_SHORT).show();
+				} else {
+					Toast.makeText(getApplicationContext(), "Error saving file", Toast.LENGTH_SHORT).show();
+				}		        
+		    }
+		});
+		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		    @Override
+		    public void onClick(DialogInterface dialog, int which) {
+		        dialog.cancel();
+		    }
+		});
+		builder.show();
+		
+		return;
+
 	}
 
 	@Override

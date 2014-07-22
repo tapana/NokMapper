@@ -2,6 +2,8 @@ package org.droidplanner.android.utils.file;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class FileList {
 
@@ -38,9 +40,30 @@ public class FileList {
 	static public String[] getFileList(String path, FilenameFilter filter) {
 		File mPath = new File(path);
 		try {
-			mPath.mkdirs();
+			mPath.mkdirs();			
 			if (mPath.exists()) {
-				return mPath.list(filter);
+				File[] files = mPath.listFiles(filter);
+				if(files == null)return new String[0];	
+				
+				if ( files.length > 1) {
+					//sort by name
+					Arrays.sort(files);
+					
+					//sort by last modified
+					/*Arrays.sort(files, new Comparator<File>() {
+			             @Override
+			             public int compare(File f1, File f2) {
+			                return (f1.lastModified() < f2.lastModified()) ?1:-1;
+			                
+			             }
+			        });*/
+				}
+				
+				String[] nameList = new String[files.length];
+				for(int i=0;i<files.length;i++){
+					nameList[i] = files[i].getName();
+				}				
+				return nameList;
 			}
 		} catch (SecurityException e) {
 			e.printStackTrace();

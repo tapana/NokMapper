@@ -50,7 +50,6 @@ cut out from fragment_editor_detail_rtl
 
 Flight Activity  extends DrawerNavigationUI extends SuperUI
 
-
 	telemetry framment 
 		left-side info 
 
@@ -61,6 +60,15 @@ Flight Activity  extends DrawerNavigationUI extends SuperUI
  		is infobar inside SuperUI class InfoBarActionProvider
 
 
+load save mision file menu
+	onCreateOptionMenu()
+
+	onMenuItemSelected()
+	
 
 
+
+
+
+addition dev
 add hack for survey using waypoint yawangle parameter
