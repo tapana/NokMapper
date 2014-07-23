@@ -259,11 +259,15 @@ public abstract class InfoBarItem {
 
 		@Override
 		public void updateItemView(Context context, Drone drone) {
-			if (mItemView != null) {
-				String update = drone == null ? "--" : String.format(
-						"%2.1fv\n%2.0f%%", drone.battery.getBattVolt(),
-						drone.battery.getBattRemain());
-
+			if (mItemView != null) {				
+				String update = "--";
+				if(drone != null){
+					update = String.format("%2.1fv %2.0f%%\n %2.1fA %2.0fw",
+						drone.battery.getBattVolt(),
+						drone.battery.getBattRemain() ,
+						drone.battery.getBattCurrent(),
+						drone.battery.getBattVolt() * drone.battery.getBattCurrent());				
+				}				
 				((TextView) mItemView).setText(update);
 			}
 		}

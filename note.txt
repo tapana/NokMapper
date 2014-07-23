@@ -56,9 +56,10 @@ Flight Activity  extends DrawerNavigationUI extends SuperUI
  	flight aciton fragment
  		button on bottom bar rtl, land, follow me , etc..
 
- 	actionbar 
+ 	infobar   actionbar 
  		is infobar inside SuperUI class InfoBarActionProvider
-
+ 	infobaritem
+ 		item on actionbar gps,batt,signal
 
 load save mision file menu
 	onCreateOptionMenu()
