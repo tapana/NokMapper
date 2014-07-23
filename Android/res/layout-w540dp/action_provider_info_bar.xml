@@ -72,12 +72,22 @@
         android:drawablePadding="@dimen/info_bar_drawable_padding"
         />
 
-    <org.droidplanner.android.widgets.spinners.SpinnerSelfSelect
+      <TextView
+        android:id="@+id/bar_flight_mode"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:minWidth="80dp"
+        android:layout_height="match_parent"
+        android:text="@string/empty_content"        
+        android:textSize="@dimen/info_bar_text_size"
+        android:drawablePadding="@dimen/info_bar_drawable_padding"/>
+    
+    <!-- org.droidplanner.android.widgets.spinners.SpinnerSelfSelect
         android:id="@+id/bar_flight_mode"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="@dimen/info_bar_flight_mode_width"
         android:layout_height="match_parent"
         app:isSelectable="false"
-        />
+        /-->
 
 </LinearLayout>

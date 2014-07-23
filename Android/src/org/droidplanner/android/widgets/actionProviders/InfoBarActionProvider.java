@@ -120,6 +120,7 @@ public class InfoBarActionProvider extends ActionProvider implements OnDroneList
 				mFlightTimeInfo.updateItemView(mContext, mDrone);
 			break;
 
+		case ARMING:
 		case MODE:
 		case TYPE:
 			if (mFlightModesInfo != null)

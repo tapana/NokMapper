@@ -398,7 +398,7 @@ public abstract class InfoBarItem {
 		public FlightModesInfo(Context context, View parentView, Drone drone) {
 			super(context, parentView, drone, R.id.bar_flight_mode);
 		}
-
+/*
 		@Override
 		protected void initItemView(final Context context, View parentView,
 				final Drone drone) {
@@ -426,11 +426,26 @@ public abstract class InfoBarItem {
 					});
 
 			updateItemView(context, drone);
-		}
+		}*/
 
 		@Override
 		public void updateItemView(final Context context, final Drone drone) {
-			mDrone = drone;
+			
+			if (mItemView != null) {
+				String update = "--";
+				if(drone != null){
+					update = drone.state.getMode().getName()+"\n";
+					
+					if(drone.state.isArmed()){
+						update += "Armed";
+					}else{
+						update += "Disarmed";
+					}
+				}			
+				((TextView) mItemView).setText(update);
+			}
+			
+			/*mDrone = drone;
 
 			if (mItemView == null)
 				return;
@@ -452,6 +467,8 @@ public abstract class InfoBarItem {
 			if (mDrone != null)
 				modesSpinner.forcedSetSelection(mModeAdapter
 						.getPosition(mDrone.state.getMode()));
+						
+						*/
 		}
 	}
 
