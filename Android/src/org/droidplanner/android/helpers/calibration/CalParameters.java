@@ -1,10 +1,10 @@
 package org.droidplanner.android.helpers.calibration;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.droidplanner.core.drone.Drone;
 import org.droidplanner.core.parameters.Parameter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CalParameters {
 	private Drone myDrone;
@@ -14,6 +14,7 @@ public class CalParameters {
 	private OnCalibrationEvent listener;
 	private int paramCount = 0;
 	private int uploadIndex = 0;
+    private boolean updateTrig = false;
 
 	public interface OnCalibrationEvent {
 		public void onReadCalibration();
@@ -35,14 +36,27 @@ public class CalParameters {
 		if (myDrone == null) {
 			return;
 		}
-		Parameter param = myDrone.parameters.getLastParameter();
-		if (isUpdating) {
-			compareCalibrationParameter(param);
-		} else {
-			calParameterItems.add(param);
-			paramCount = calParameterItems.size();
-			readCalibrationParameter(calParameterItems.size());
-		}
+
+        paramCount = calParameterItems.size();
+        //check if finished read parameter
+        if (paramCount >= calParameterNames.size()) {
+            if (this.listener != null && ! updateTrig) {
+                updateTrig = true;
+                this.listener.onReadCalibration();
+            }
+            return;
+        }
+
+        Parameter param = myDrone.parameters.getParameter(calParameterNames.get(paramCount));
+
+        if (param != null) {
+            calParameterItems.add(param);
+            readCalibrationParameter(paramCount + 1);
+        } else {
+            //re-read if failed
+            readCalibrationParameter(paramCount);
+        }
+
 	}
 
 	private void compareCalibrationParameter(Parameter param) {
@@ -58,7 +72,14 @@ public class CalParameters {
 		this.myDrone = drone;
 		calParameterItems.clear();
 		paramCount = 0;
-		readCalibrationParameter(0);
+
+        //clear parameter value in cache Parameter Class
+        for(int i=0;i<calParameterNames.size();i++){
+            myDrone.parameters.clearCacheParameter(calParameterNames.get(i));
+        }
+        updateTrig = false;
+        readCalibrationParameter(0);
+
 	}
 
 	private void readCalibrationParameter(int seq) {
@@ -68,30 +89,34 @@ public class CalParameters {
 			return;
 		}
 
-		if (myDrone != null)
-			myDrone.parameters.ReadParameter(calParameterNames.get(seq));
-
+		if (myDrone != null) {
+            myDrone.parameters.ReadParameter(calParameterNames.get(seq));
+        }
 		if (this.listener != null) {
 			this.listener.onCalibrationData(seq, calParameterNames.size(), isUpdating);
 		}
 	}
 
 	public void sendCalibrationParameters() {
-		isUpdating = true;
-		if (calParameterItems.size() > 0 && uploadIndex < paramCount) {
-			if (this.listener != null) {
-				this.listener.onCalibrationData(uploadIndex, paramCount, isUpdating);
-			}
-			if (myDrone != null) {
-				myDrone.parameters.sendParameter(calParameterItems.get(uploadIndex));
-			}
-		} else {
-			isUpdating = false;
-			uploadIndex = 0;
-			if (this.listener != null) {
-				this.listener.onSentCalibration();
-			}
-		}
+
+        isUpdating = true;
+        for(int i=0;i<calParameterItems.size();i++){
+            Parameter p = calParameterItems.get(i);
+
+            if (myDrone != null) {
+                myDrone.parameters.sendParameter(p);
+            }
+            if (this.listener != null) {
+                this.listener.onCalibrationData(i, paramCount, isUpdating);
+            }
+
+        }
+        isUpdating = false;
+
+        if (this.listener != null) {
+            this.listener.onSentCalibration();
+        }
+
 	}
 
 	public boolean isParameterDownloaded() {

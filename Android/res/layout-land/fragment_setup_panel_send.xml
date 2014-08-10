@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/button_blue"
-            android:text="@string/button_setup_cancel"/>
+            android:text="@string/refresh"/>
 
         <Button
             android:id="@+id/buttonSend"

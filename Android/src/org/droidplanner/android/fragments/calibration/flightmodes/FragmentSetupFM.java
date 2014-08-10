@@ -20,7 +20,7 @@ import android.widget.TextView;
 public class FragmentSetupFM extends SuperSetupMainPanel {
 
 	private int[] pwm = { 1230, 1360, 1490, 1620, 1750 };
-	private int[] flightModeIndex = { 1, 2, 4, 8, 16, 32 };
+
 	private int dataFM[] = new int[8];
 
 	private int[] valueFM;
@@ -71,20 +71,23 @@ public class FragmentSetupFM extends SuperSetupMainPanel {
 			cnt++;
 		}
 
+
 		// read SIMPLE MODE check boxes and create bit value
 		cnt = 0;
+        dataFM[6] = 0;
 		for (CheckBox chkbx : chkbxSimple) {
 			if (chkbx.isChecked()) {
-				dataFM[6] += flightModeIndex[cnt];
+				dataFM[6] |= (1<<cnt); //flightModeIndex[cnt];
 			}
 			cnt++;
 		}
 
 		// read SUPER SIMPLE MODE check boxes and create bit value
 		cnt = 0;
+        dataFM[7] = 0;
 		for (CheckBox chkbx : chkbxSuperSimple) {
 			if (chkbx.isChecked()) {
-				dataFM[7] += flightModeIndex[cnt];
+				dataFM[7] |= (1<<cnt);
 			}
 			cnt++;
 		}
@@ -98,13 +101,11 @@ public class FragmentSetupFM extends SuperSetupMainPanel {
 			pwmSpinners[i].setSelection(getSpinnerIndexFromValue(fmData, valueFM), true);
 		}
 
+        int pSimple = (int) parameters.getParamValue(6);
+        int pSuperSimple = (int) parameters.getParamValue(7);
 		for (int i = 0; i < 6; i++) {
-			int fmData;
-			fmData = (int) parameters.getParamValue(6);
-			chkbxSimple[i].setChecked((fmData & flightModeIndex[i]) == flightModeIndex[i]);
-
-			fmData = (int) parameters.getParamValue(7);
-			chkbxSuperSimple[i].setChecked((fmData & flightModeIndex[i]) == flightModeIndex[i]);
+            chkbxSimple[i].setChecked( (pSimple & (1<<i)) > 0 );
+            chkbxSuperSimple[i].setChecked( (pSuperSimple&(1<<i)) > 0 );
 		}
 	}
 

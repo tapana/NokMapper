@@ -71,12 +71,13 @@ public abstract class SuperSetupMainPanel extends SetupMainPanel implements OnCa
 
 	@Override
 	public void onReadCalibration() {
-		doCalibrationStep(0);
-		updatePanelInfo();
+        sidePanel = getDefaultPanel();
+        ((SetupRadioFragment) getParentFragment()).changeSidePanel(sidePanel);
+        updatePanelInfo();
 	}
 
 	@Override
-	public void onSentCalibration() {
+	public void onSentCalibration(){
 		doCalibrationStep(0);
 	}
 
@@ -108,13 +109,12 @@ public abstract class SuperSetupMainPanel extends SetupMainPanel implements OnCa
 
 	protected SetupSidePanel getInitialPanel() {
 
-		if (parameters != null && !parameters.isParameterDownloaded()
+		if (parameters != null //&& !parameters.isParameterDownloaded()
 				&& drone.MavClient.isConnected()) {
 			downloadCalibrationData();
 		} else {
 			sidePanel = getDefaultPanel();
 			((SetupRadioFragment) getParentFragment()).changeSidePanel(sidePanel);
-
 		}
 		return sidePanel;
 	}
@@ -144,7 +144,7 @@ public abstract class SuperSetupMainPanel extends SetupMainPanel implements OnCa
 		parameters.sendCalibrationParameters();
 	}
 
-	private void downloadCalibrationData() {
+	protected void downloadCalibrationData() {
 		if (parameters == null || !drone.MavClient.isConnected())
 			return;
 		sidePanel = getProgressPanel(false);

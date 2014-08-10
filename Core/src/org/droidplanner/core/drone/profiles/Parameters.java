@@ -1,7 +1,8 @@
 package org.droidplanner.core.drone.profiles;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
+import com.MAVLink.Messages.MAVLinkMessage;
+import com.MAVLink.Messages.ardupilotmega.msg_param_value;
 
 import org.droidplanner.core.MAVLink.MavLinkParameters;
 import org.droidplanner.core.drone.Drone;
@@ -12,8 +13,8 @@ import org.droidplanner.core.drone.DroneInterfaces.OnDroneListener;
 import org.droidplanner.core.drone.DroneVariable;
 import org.droidplanner.core.parameters.Parameter;
 
-import com.MAVLink.Messages.MAVLinkMessage;
-import com.MAVLink.Messages.ardupilotmega.msg_param_value;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class to manage the communication of parameters to the MAV.
@@ -72,10 +73,12 @@ public class Parameters extends DroneVariable implements OnDroneListener {
 		return false;
 	}
 
+
 	private void processReceivedParam(msg_param_value m_value) {
 		// collect params in parameter list
 		Parameter param = new Parameter(m_value);
-		parameters.put((int) m_value.param_index, param);
+
+        parameters.put((int) m_value.param_index, param);
 
 		expectedParams = m_value.param_count;
 		
@@ -124,6 +127,17 @@ public class Parameters extends DroneVariable implements OnDroneListener {
 		}
 		return null;
 	}
+
+    public void clearCacheParameter(String name){
+
+        for (int key : parameters.keySet()) {
+            if (parameters.get(key).name.equalsIgnoreCase(name)){
+                parameters.remove(key);
+                return;
+            }
+
+        }
+    }
 
 	public Parameter getLastParameter() {
 		if (parameters.size() > 0)

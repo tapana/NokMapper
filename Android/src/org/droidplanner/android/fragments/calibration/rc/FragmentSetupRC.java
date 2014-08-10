@@ -95,10 +95,6 @@ public class FragmentSetupRC extends SuperSetupMainPanel {
 		super.onDroneEvent(event, drone);
 	}
 
-	@Override
-	public void onReadCalibration() {
-		doCalibrationStep(0);// show progress sidepanel
-	}
 
 	@Override
 	public void setupLocalViews(View view) {
