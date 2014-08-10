@@ -12,7 +12,6 @@ import org.droidplanner.core.mission.survey.grid.Grid;
 import org.droidplanner.core.mission.survey.grid.GridBuilder;
 import org.droidplanner.core.polygon.Polygon;
 
-import android.util.Log;
 
 import com.MAVLink.Messages.ardupilotmega.msg_mission_item;
 import com.MAVLink.Messages.enums.MAV_CMD;

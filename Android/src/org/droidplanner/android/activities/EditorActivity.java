@@ -1,6 +1,21 @@
 package org.droidplanner.android.activities;
 
-import java.util.List;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
+import android.view.ActionMode;
+import android.view.ActionMode.Callback;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AbsListView;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import org.droidplanner.R;
 import org.droidplanner.android.DroidPlannerApp;
@@ -27,25 +42,7 @@ import org.droidplanner.core.drone.Drone;
 import org.droidplanner.core.drone.DroneInterfaces.DroneEventsType;
 import org.droidplanner.core.helpers.coordinates.Coord2D;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NavUtils;
-import android.text.InputType;
-import android.view.ActionMode;
-import android.view.ActionMode.Callback;
-import android.view.inputmethod.EditorInfo;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.util.List;
 
 
 /**
