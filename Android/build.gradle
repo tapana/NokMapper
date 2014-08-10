@@ -7,7 +7,7 @@ repositories {
 dependencies {
     compile 'com.android.support:support-v4:20.+'
     compile files('libs/droneapi-java.jar')
-    compile 'com.google.android.gms:play-services:5.+'
+    compile 'com.google.android.gms:play-services:5.0.+'
     compile 'com.google.guava:guava:17.0'
     compile 'org.slf4j:slf4j-api:1.7.7'
     compile 'org.slf4j:slf4j-nop:1.7.7'
@@ -20,9 +20,9 @@ dependencies {
 
     compile project(':Core')
     compile project(':Mavlink')
-    compile project(':HorizontalVariableListView:HorizontalVariableListView')
-    compile project(':PebbleKit')
-    compile project(':usb-serial-for-android:UsbSerialLibrary')
+    compile project(':Libraries:HorizontalVariableListView:HorizontalVariableListView')
+    compile project(':Libraries:PebbleKit')
+    compile project(':Libraries:usb-serial-for-android:UsbSerialLibrary')
 }
 
 android {

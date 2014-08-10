@@ -2,7 +2,6 @@ package org.droidplanner.core.drone.profiles;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.droidplanner.core.MAVLink.MavLinkParameters;
 import org.droidplanner.core.drone.Drone;
@@ -12,8 +11,6 @@ import org.droidplanner.core.drone.DroneInterfaces.Handler;
 import org.droidplanner.core.drone.DroneInterfaces.OnDroneListener;
 import org.droidplanner.core.drone.DroneVariable;
 import org.droidplanner.core.parameters.Parameter;
-
-import android.annotation.SuppressLint;
 
 import com.MAVLink.Messages.MAVLinkMessage;
 import com.MAVLink.Messages.ardupilotmega.msg_param_value;
@@ -32,7 +29,6 @@ public class Parameters extends DroneVariable implements OnDroneListener {
 
 	private int expectedParams;
 
-	@SuppressLint("UseSparseArrays")
 	private HashMap<Integer, Parameter> parameters = new HashMap<Integer, Parameter>();
 
 	public DroneInterfaces.OnParameterManagerListener parameterListener;
@@ -44,6 +40,8 @@ public class Parameters extends DroneVariable implements OnDroneListener {
 			onParameterStreamStopped();
 		}
 	};
+
+	public ArrayList<Parameter> parameterList;
 
 	public Parameters(Drone myDrone, Handler handler) {
 		super(myDrone);
@@ -88,12 +86,13 @@ public class Parameters extends DroneVariable implements OnDroneListener {
 
 		// Are all parameters here? Notify the listener with the parameters
 		if (parameters.size() >= m_value.param_count) {
+			parameterList = new ArrayList<Parameter>();
+			for (int key : parameters.keySet()) {
+				parameterList.add(parameters.get(key));
+			}
+			killWatchdog();
+			myDrone.events.notifyDroneEvent(DroneEventsType.PARAMETERS_DOWNLOADED);
 			if (parameterListener != null) {
-				List<Parameter> parameterList = new ArrayList<Parameter>();
-				for (int key : parameters.keySet()) {
-					parameterList.add(parameters.get(key));
-				}
-				killWatchdog();
 				parameterListener.onEndReceivingParameters(parameterList);
 			}
 		} else {

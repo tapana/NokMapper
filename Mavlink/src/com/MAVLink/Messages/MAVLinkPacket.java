@@ -2,8 +2,6 @@ package com.MAVLink.Messages;
 
 import java.io.Serializable;
 
-import android.util.Log;
-
 import com.MAVLink.Messages.ardupilotmega.*;
 
 /**
@@ -25,7 +23,6 @@ import com.MAVLink.Messages.ardupilotmega.*;
  * The minimum packet length is 8 bytes for acknowledgement packets without payload
  * The maximum packet length is 263 bytes for full payload
  * 
- * @author ghelle
  *
  */
 public class MAVLinkPacket implements Serializable {
@@ -77,7 +74,6 @@ public class MAVLinkPacket implements Serializable {
 	 */
 	public boolean payloadIsFilled() {
 		if (payload.size() >= MAVLinkPayload.MAX_PAYLOAD_SIZE-1) {
-			Log.d("MAV","Buffer overflow");
 			return true;
 		}
 		return (payload.size() == len);
@@ -385,7 +381,7 @@ public class MAVLinkPacket implements Serializable {
 		case msg_debug.MAVLINK_MSG_ID_DEBUG:
 			return  new msg_debug(this);
 		default:
-			Log.d("MAVLink", "UNKNOW MESSAGE - " + msgid);
+			System.err.println("UNKNOW MESSAGE - " + msgid);
 			return null;
 		}
 	}
